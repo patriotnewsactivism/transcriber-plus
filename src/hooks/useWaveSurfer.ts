@@ -33,7 +33,7 @@ export function useWaveSurfer(
       minPxPerSec: 60,
       interact: true
     });
-    const regions = ws.registerPlugin(Regions.create({ dragSelection: false }));
+    const regions = ws.registerPlugin(Regions.create());
 
     wsRef.current = ws;
     regionsRef.current = regions;
