@@ -1,0 +1,36 @@
+{
+  "name": "premium-transcriber",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "eslint .",
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "prisma:generate": "prisma generate",
+    "prisma:migrate": "prisma migrate dev --name diarization"
+  },
+  "dependencies": {
+    "@prisma/client": "^5.20.0",
+    "clsx": "^2.1.0",
+    "next": "^14.2.5",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "wavesurfer.js": "^7.7.5",
+    "zod": "^3.23.8"
+  },
+  "devDependencies": {
+    "@types/node": "^20.10.6",
+    "@types/react": "^18.2.21",
+    "@types/react-dom": "^18.2.7",
+    "@vitest/coverage-v8": "^2.1.4",
+    "eslint": "^8.57.0",
+    "eslint-config-next": "^14.2.5",
+    "prisma": "^5.20.0",
+    "rollup": "^4.52.5",
+    "typescript": "^5.4.5",
+    "vitest": "^2.1.4"
+  }
+}

@@ -1,0 +1,59 @@
+generator client {
+  provider = "prisma-client-js"
+}
+datasource db {
+  provider = "sqlite" // switch to "postgresql" in prod
+  url      = env("DATABASE_URL")
+}
+model Media {
+  id          String       @id @default(cuid())
+  url         String       @unique
+  duration    Float?
+  createdAt   DateTime     @default(now())
+  transcripts Transcript[]
+}
+model Transcript {
+  id         String     @id @default(cuid())
+  media      Media      @relation(fields: [mediaId], references: [id])
+  mediaId    String
+  language   String?
+  text       String?
+  createdAt  DateTime   @default(now())
+  speakers   Speaker[]
+  segments   Segment[]
+}
+model Speaker {
+  id           String      @id @default(cuid())
+  transcript   Transcript  @relation(fields: [transcriptId], references: [id])
+  transcriptId String
+  label        String
+  color        String
+  createdAt    DateTime    @default(now())
+  segments     Segment[]
+  words        Word[]
+  @@unique([transcriptId, label])
+}
+model Segment {
+  id           String      @id @default(cuid())
+  transcript   Transcript  @relation(fields: [transcriptId], references: [id])
+  transcriptId String
+  start        Float
+  end          Float
+  text         String
+  diarConf     Float?
+  speaker      Speaker?    @relation(fields: [speakerId], references: [id], onDelete: SetNull)
+  speakerId    String?
+  words        Word[]
+  @@index([transcriptId, start])
+}
+model Word {
+  id         String   @id @default(cuid())
+  segment    Segment  @relation(fields: [segmentId], references: [id])
+  segmentId  String
+  start      Float
+  end        Float
+  text       String
+  speaker    Speaker? @relation(fields: [speakerId], references: [id], onDelete: SetNull)
+  speakerId  String?
+  @@index([segmentId, start])
+}
