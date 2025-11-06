@@ -27,13 +27,11 @@ export function useWaveSurfer(
 
     const ws = WaveSurfer.create({
       container: containerRef.current,
-      backend: "WebAudio",
       url,
       autoplay,
       height: 96,
       minPxPerSec: 60,
-      interact: true,
-      partialRender: true
+      interact: true
     });
     const regions = ws.registerPlugin(Regions.create({ dragSelection: false }));
 
