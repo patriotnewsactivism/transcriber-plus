@@ -49,7 +49,7 @@ export function useWaveSurfer(
 
     segments.forEach(s => regions.addRegion({ id: s.id, start: s.start, end: s.end, drag: false, resize: false, color: colorFor(speakers, s.speakerId) }));
 
-    regions.on("click", (r: any, e: MouseEvent) => { e.stopPropagation(); ws.setTime(r.start); ws.play(); });
+    regions.on("region-clicked", (r: any, e: MouseEvent) => { e.stopPropagation(); ws.setTime(r.start); ws.play(); });
 
     return () => {
       try { ws.destroy(); } catch {}
