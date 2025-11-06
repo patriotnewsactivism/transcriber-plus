@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
 import { z } from "zod";
 import { prisma } from "@/lib/db";
+import { Prisma } from "@prisma/client";
 import { parseVerboseJSON } from "@/utils/parseVerbose";
 import { diarizeSegments, type Provider } from "@/utils/diarize";
 import { colorForIndex, defaultLabel } from "@/utils/speakers";
@@ -29,7 +30,7 @@ export async function POST(req: NextRequest) {
     conf = d.conf;
   }
 
-  const result = await prisma.$transaction(async (tx) => {
+  const result = await prisma.$transaction(async (tx: Prisma.TransactionClient) => {
     const media = await tx.media.upsert({
       where: { url: mediaUrl },
       update: { duration: duration ?? parsed.duration ?? undefined },
